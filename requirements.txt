@@ -69,7 +69,6 @@ pillow==11.1.0
 propcache==0.3.1
 protobuf==5.29.3
 pyarrow==19.0.1
-PyAudio==0.2.14
 pycryptodome==3.22.0
 pydantic==2.11.2
 pydantic_core==2.33.1
@@ -80,7 +79,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
 pytz==2025.1
 pyunormalize==16.0.0
-pywin32==310
 referencing==0.36.2
 regex==2024.11.6
 requests==2.32.3
