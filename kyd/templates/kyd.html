@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Disease</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center text-white bg-primary p-3">Know Your Disease</h2>
+
+        <!-- Symptoms Input Section -->
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Type Symptoms</h4>
+                <div id="symptoms-container">
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control symptom-input" placeholder="Enter symptom">
+                        <button class="btn btn-danger remove-symptom">X</button>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="addSymptom()">+ Add Symptoms</button>
+                <button class="btn btn-primary" onclick="sendSymptoms()">Send Symptoms</button>
+            </div>
+
+            <!-- Voice Input Section -->
+            <div class="col-md-6">
+                <h4>Record Symptoms</h4>
+                <button class="btn btn-info" onclick="startVoiceInput()">🎤 Start Voice</button>
+                <p id="voice-result"></p>
+            </div>
+        </div>
+
+        <!-- Disease Prediction Output -->
+        <div id="result" class="mt-4" style="display: none;">
+            <h3>Predicted Disease: <span id="disease-name"></span></h3>
+            <h4>Description</h4>
+            <p id="disease-desc"></p>
+            <h4>Precautions</h4>
+            <ul id="precautions-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        function addSymptom() {
+            let container = document.getElementById("symptoms-container");
+            let div = document.createElement("div");
+            div.className = "input-group mb-2";
+            div.innerHTML = `
+                <input type="text" class="form-control symptom-input" placeholder="Enter symptom">
+                <button class="btn btn-danger remove-symptom">X</button>
+            `;
+            div.querySelector(".remove-symptom").addEventListener("click", function() {
+                div.remove();
+            });
+            container.appendChild(div);
+        }
+
+        function sendSymptoms() {
+            let symptoms = [];
+            document.querySelectorAll(".symptom-input").forEach(input => {
+                if (input.value.trim() !== "") {
+                    symptoms.push(input.value.trim().toLowerCase());
+                }
+            });
+
+            fetch("/predict", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ symptoms })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").style.display = "block";
+                document.getElementById("disease-name").innerText = data.disease;
+                document.getElementById("disease-desc").innerText = data.description;
+                document.getElementById("precautions-list").innerHTML = data.precautions.map(p => `<li>${p}</li>`).join("");
+            });
+        }
+
+        function startVoiceInput() {
+            fetch("/voice", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("voice-result").innerText = data.error;
+                } else {
+                    document.getElementById("voice-result").innerText = "Recognized Symptoms: " + data.symptoms;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

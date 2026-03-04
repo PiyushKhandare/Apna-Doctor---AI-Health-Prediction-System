@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apna Doctor - AI Health Platform</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fbfc;
+    }
+
+   /* 🌟 NAVBAR STYLING */
+.custom-navbar {
+  background: transparent;
+  transition: all 0.4s ease;
+  padding: 15px 0;
+  font-weight: 500;
+}
+
+.custom-navbar.scrolled {
+  background: rgba(13, 71, 161, 0.95); /* same as bg-primary but translucent */
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-link {
+  color: #fff !important;
+  margin-left: 20px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Underline hover animation */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00e0ff;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* On small screens */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+
+    .hero {
+  position: relative;
+  height: 100vh;              /* Full screen */
+  overflow: hidden;
+  display: flex;              /* Enables Flexbox */
+  align-items: center;        /* Vertically center content */
+  justify-content: center;    /* Horizontally center content */
+  text-align: center;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* Make sure video fills the screen */
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);  /* Slight dark overlay for contrast */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;                 /* Keeps content above the video */
+  color: white;
+  max-width: 800px;
+  padding: 20px;
+}
+
+
+    .section-title {
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .process-step {
+      text-align: center;
+    }
+
+    .process-step img {
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    /* 🌟 FOOTER STYLES */
+.footer {
+  background-color: rgba(13, 71, 161, 0.95);
+  color: white;
+  padding-top: 60px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Columns */
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Logo Section */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.footer-logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 8px;
+  background: white;
+  padding: 5px;
+}
+
+.footer-logo h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Text & Links */
+.footer-column p {
+  color: #dbe4ff;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: #dbe4ff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #80deea;
+}
+
+.footer-column ul li i {
+  margin-right: 8px;
+  color: #80deea;
+}
+
+/* Contact Info */
+.contact-info li {
+  color: #dbe4ff;
+  font-size: 0.95rem;
+}
+
+/* Social Icons */
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons a {
+  color: #dbe4ff;
+  margin-right: 15px;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #80deea;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+  color: #dbe4ff;
+  margin-top: 40px;
+}
+
+
+/* 🌟 FAQ SECTION */
+.faq-section {
+  background:#fff;
+  padding: 100px 60px;
+  font-family: 'Poppins', sans-serif;
+  min-height: 725px;
+}
+
+.faq-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: auto;
+  gap: 70px;
+  flex-wrap: wrap;
+}
+
+/* 🩵 Left Side */
+.faq-left {
+  flex: 1;
+  min-width: 320px;
+}
+
+.faq-title {
+  font-size: 2.5rem;
+  color: #0d47a1;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.faq-subtitle {
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.faq-image {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+/* 💬 Right Side */
+.faq-right {
+  flex: 1;
+  min-width: 360px;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+  background: #0d47a1;
+  color: white;
+  width: 100%;
+  padding: 18px 22px;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: relative;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-question:hover {
+  background: #1565c0;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0 22px;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 15px 22px 20px;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 900px) {
+  .faq-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .faq-left, .faq-right {
+    width: 100%;
+  }
+
+  .faq-image {
+    margin: 20px auto 0;
+  }
+
+  .faq-question {
+    text-align: left;
+  }
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+    .contact-section {
+      padding: 60px 0;
+    }
+
+    .contact-section form input, .contact-section form textarea {
+      border-radius: 10px;
+    }
+
+    .btn-primary {
+      background-color: #0d47a1;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0b3a8d;
+    }
+
+    /* 🌟 OUR VISION SECTION */
+.vision-section {
+  background: rgba(13, 71, 161, 0.95);
+  padding: 100px 50px;
+  font-family: 'Poppins', sans-serif;
+  min-height: 725px;
+}
+
+.vision-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* 🩺 Image Styling */
+.vision-image {
+  flex: 1;
+  text-align: center;
+}
+
+.vision-image img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+.vision-image img:hover {
+  transform: scale(1.05);
+}
+
+/* 💬 Text Section */
+.vision-content {
+  flex: 1;
+  min-width: 340px;
+}
+
+.vision-title {
+  font-size: 2.5rem;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Blue underline accent */
+.vision-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: linear-gradient(to right, #0d47a1, #42a5f5);
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+.vision-text {
+  color: #fff;
+  line-height: 1.8;
+  margin-bottom: 18px;
+  font-size: 1.05rem;
+}
+
+.vision-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: #fff;
+  color: #0d47a1;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.vision-btn:hover {
+  background: rgba(13, 71, 161, 0.95);
+  color:#fff;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 900px) {
+  .vision-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .vision-image img {
+    max-width: 400px;
+  }
+
+  .vision-title {
+    font-size: 2rem;
+  }
+}
+
+  
+  </style>
+</head>
+
+<body>
+ <!-- 🌟 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="/" style="font-size: 35px;">
+      <!-- <img src="{{ url_for('static', filename='') }}" alt="Logo" height="40" class="me-2"> -->
+      Apna Doctor
+    </a>
+
+    <!-- Toggle (for mobile) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto" style="font-size: 20px;">
+        <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+         <li class="nav-item"><a class="nav-link" href="/services">Our Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="/kyd">Know Your Disease</a></li>
+        <li class="nav-item"><a class="nav-link" href="/appointment">Appointment</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero position-relative">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="hero-video">
+    <source src="{{ url_for('static', filename='img/VID-20251028-WA0003.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Overlay (optional, for darkening video a bit) -->
+  <div class="hero-overlay"></div>
+
+  <!-- Hero Content -->
+  <div class="hero-content text-center text-white" data-aos="fade-up">
+    <h1 style="color:#fff;">Your Health, Our AI Priority</h1>
+    <p>Get instant predictions & book appointments with top doctors.</p>
+    <div>
+      <a href="/appointment" class="btn btn-light me-2" style="color:#0d47a1; border-radius: 40px;">Book Appointment</a>
+      <a href="/kyd" class="btn btn-outline-light" style="border-radius: 40px;">Try KYD</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ✅ Our Process Section -->
+<section id="process" class="py-5" style="background-color: #fff; min-height: 800px;">
+  <div class="container py-4">
+    <div class="row align-items-center justify-content-center">
+
+      <!-- 🖼️ Left Side Image -->
+      <div class="col-md-5 mb-5 mb-md-0" data-aos="fade-right">
+        <div class="position-relative">
+          <img src="static/img/ourprocess.webp" alt="Our Process" 
+               class="img-fluid rounded-4 shadow-lg"
+               style="object-fit: cover; height: 550px; width: 100%;">
+          <div class="position-absolute bottom-0 start-0 end-0 text-white p-3" 
+               style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); border-radius: 0 0 1rem 1rem;">
+            <p class="mb-1 small">Have Questions? We’re Here to Help You!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 📋 Right Side Steps -->
+      <div class="col-md-6 ms-md-5" data-aos="fade-left">
+        <h3 class="fw-bold mb-4" style="color:#0d47a1;">Our Process</h3>
+        <p class="text-muted mb-5" style="font-size: 1.05rem;">
+          At Apna Doctor, every step of your journey is designed to be smooth, transparent, 
+          and focused on results you can trust. Here’s how we care for you:
+        </p>
+
+        <div class="mb-5 border-bottom pb-3">
+          <h5 class="fw-bold mb-2" style="color:#0d47a1;">01 Personalized Consultation</h5>
+          <p class="text-muted mb-0">We begin with a one-on-one consultation to understand your needs and goals.</p>
+        </div>
+
+        <div class="mb-5 border-bottom pb-3">
+          <h5 class="fw-bold mb-2" style="color:#0d47a1;">02 Tailored Health Plan</h5>
+          <p class="text-muted mb-0">Our experts design a personalized health or treatment plan based on your data.</p>
+        </div>
+
+        <div class="mb-5 border-bottom pb-3">
+          <h5 class="fw-bold mb-2" style="color:#0d47a1;">03 Expert Execution</h5>
+          <p class="text-muted mb-0">We deliver AI-powered diagnostics and doctor consultations with precision.</p>
+        </div>
+
+        <div>
+          <h5 class="fw-bold mb-2" style="color:#0d47a1;">04 Ongoing Support</h5>
+          <p class="text-muted mb-0">We stay connected with post-treatment guidance and continuous care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🌟 OUR VISION SECTION -->
+<section class="vision-section">
+  <div class="vision-container">
+    
+    <!-- 🩺 Left Side: Image -->
+    <div class="vision-image">
+      <img src="{{ url_for('static', filename='img/IMG-20251028-WA0005.jpg') }}" alt="Our Vision - Apna Doctor">
+    </div>
+
+    <!-- 💬 Right Side: Text -->
+    <div class="vision-content">
+      <h2 class="vision-title">Our Vision</h2>
+      <p class="vision-text">
+        At <strong>Apna Doctor</strong>, we envision a world where healthcare is accessible, personalized, and intelligent.  
+        Our goal is to empower individuals through AI-driven medical insights that help detect diseases early and connect people  
+        with the right healthcare professionals — anytime, anywhere.
+      </p>
+
+      <p class="vision-text">
+        By combining innovation, compassion, and technology, we aim to transform the way people understand and manage their health —  
+        making smart healthcare the new normal for every household.
+      </p>
+
+      <a href="/contact" class="vision-btn">Contact Us</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 🌟 FAQ SECTION -->
+<section class="faq-section">
+  <div class="faq-container">
+    
+    <!-- 🩵 LEFT SIDE -->
+    <div class="faq-left" data-aos="fade-right">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      <p class="faq-subtitle">
+        Find quick answers about how Apna Doctor’s AI-driven health predictions and doctor appointments work.  
+        We’re here to make healthcare smarter, faster, and simpler for you.
+      </p>
+    </div>
+
+    <!-- 💬 RIGHT SIDE -->
+    <div class="faq-right" data-aos="fade-left">
+      
+      <div class="faq-item">
+        <button class="faq-question">💡 What is Apna Doctor?</button>
+        <div class="faq-answer">
+          <p>Apna Doctor is an AI-based healthcare platform that predicts diseases, manages appointments, and connects patients with trusted doctors.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">🤖 How does the AI prediction work?</button>
+        <div class="faq-answer">
+          <p>Our AI models analyze your medical data using deep learning and provide accurate disease predictions based on trained datasets.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">📅 How do I book an appointment?</button>
+        <div class="faq-answer">
+          <p>Simply visit the “Appointment” page, choose your preferred doctor, select a time slot, and confirm. You’ll get instant booking confirmation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">🔒 Is my medical data safe?</button>
+        <div class="faq-answer">
+          <p>Yes! We use end-to-end encryption and secure cloud storage to ensure that your personal and medical data remains private and protected.</p>
+        </div>
+      </div>
+
+            <div class="faq-item">
+        <button class="faq-question">🔒 Is my medical data safe?</button>
+        <div class="faq-answer">
+          <p>Yes! We use end-to-end encryption and secure cloud storage to ensure that your personal and medical data remains private and protected.</p>
+        </div>
+      </div>
+
+            <div class="faq-item">
+        <button class="faq-question">🔒 Is my medical data safe?</button>
+        <div class="faq-answer">
+          <p>Yes! We use end-to-end encryption and secure cloud storage to ensure that your personal and medical data remains private and protected.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+   <!-- 🌟 FOOTER SECTION -->
+<footer class="footer">
+  <div class="footer-container">
+    
+    <!-- 🩵 Left: Logo & Description -->
+    <div class="footer-column">
+      <div class="footer-logo" style="padding-left: 1px;">
+        <h2 style="font-size: 30px;">Apna Doctor</h2>
+      </div>
+      <p>Your AI-powered health companion — helping you know, prevent, and connect with top doctors.</p>
+    </div>
+
+    <!-- 💫 Center: Navigation Links -->
+    <div class="footer-column">
+      <h3 style="font-size:20px;">Quick Links</h3>
+      <ul>
+        <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="/kyd"><i class="fa-solid fa-heart-pulse"></i> Know Your Disease</a></li>
+        <li><a href="/appointment"><i class="fa-solid fa-calendar-check"></i> Appointment</a></li>
+        <li><a href="/about"><i class="fa-solid fa-user-doctor"></i> About</a></li>
+        <li><a href="/contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- 💬 Right: Contact Info -->
+    <div class="footer-column">
+      <h3 style="font-size: 20px;">Contact Us</h3>
+      <ul class="contact-info">
+        <li><i class="fa-solid fa-location-dot" style="color:gold;"></i> Pune, Maharashtra, India</li>
+        <li><i class="fa-solid fa-envelope"></i> support@apnadoctor.com</li>
+        <li><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+      </ul>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 📜 Bottom Bar -->
+  <div class="footer-bottom" style="font-size: 15px;">
+    © 2025 Apna Doctor. Developed by Piyush.
+  </div>
+</footer>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+  // Change navbar background when scrolling
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.custom-navbar');
+    if (window.scrollY > 100) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+
+<script>
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', () => {
+      // close other open FAQs
+      faqItems.forEach(i => {
+        if (i !== item) i.classList.remove('active');
+      });
+      // toggle current
+      item.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>

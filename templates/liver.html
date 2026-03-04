@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Liver Disease Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .form-card {
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 1.9rem;
+      color: #343a40;
+    }
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 500;
+      color: #000;
+      text-decoration: none;
+    }
+    .back-home:hover {
+      color: #0d6efd;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card form-card p-4">
+          <div class="text-center mb-4">
+            <h2 class="section-title">🧬 Liver Disease Predictor</h2>
+            <p class="text-muted">Fill in the values to check liver health status</p>
+          </div>
+
+          <form method="POST">
+            {% for label in ['Age', 'Gender (1=Male, 0=Female)', 'Total Bilirubin', 'Direct Bilirubin', 'Alkphos', 'Sgpt', 'Sgot', 'Total Proteins', 'Albumin', 'AG Ratio'] %}
+            <div class="mb-3">
+              <label>{{ label }}</label>
+              <input type="number" step="0.01" name="{{ label }}" class="form-control" required>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-warning w-100">🔬 Predict</button>
+          </form>
+
+          {% if prediction %}
+          <div class="alert alert-info text-center mt-4 fw-semibold fs-5">
+            {{ prediction }}
+          </div>
+          {% endif %}
+
+          <a href="/" class="back-home">← Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
