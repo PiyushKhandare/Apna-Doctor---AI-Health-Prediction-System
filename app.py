@@ -52,7 +52,7 @@ def init_db():
 init_db()  # Call the function to initialize the database
 
 # Load Dataset for KYD
-DATASET_PATH = 'C:\\Users\\Piyush\\Desktop\\prediction\\kyd\\symptoms_diseases.csv'
+DATASET_PATH = os.path.join("kyd", "symptoms_diseases.csv")
 df = pd.read_csv(DATASET_PATH) if os.path.exists(DATASET_PATH) else None
 
 # Load trained models

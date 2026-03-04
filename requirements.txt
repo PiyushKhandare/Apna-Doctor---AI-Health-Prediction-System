@@ -118,3 +118,5 @@ wheel==0.45.1
 wrapt==1.17.2
 WTForms==3.2.1
 yarl==1.19.0
+pywin32==310
+PyAudio==0.2.14
