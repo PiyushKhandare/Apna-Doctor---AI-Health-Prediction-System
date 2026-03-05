@@ -172,27 +172,27 @@ def predict():
     # If API call, return JSON
     return jsonify(result)
 
-@app.route("/voice", methods=["POST"])
-def voice():
-    recognizer = sr.Recognizer()
+# @app.route("/voice", methods=["POST"])
+# def voice():
+#     recognizer = sr.Recognizer()
 
-    try:
-        with sr.Microphone() as source:
-            print("Listening for symptoms...")
-            recognizer.adjust_for_ambient_noise(source)
-            audio = recognizer.listen(source, timeout=5)
+#     try:
+#         with sr.Microphone() as source:
+#             print("Listening for symptoms...")
+#             recognizer.adjust_for_ambient_noise(source)
+#             audio = recognizer.listen(source, timeout=5)
             
-        text = recognizer.recognize_google(audio)
-        return jsonify({"symptoms": text})
+#         text = recognizer.recognize_google(audio)
+#         return jsonify({"symptoms": text})
     
-    except sr.UnknownValueError:
-        return jsonify({"error": "Could not understand the voice input"})
+#     except sr.UnknownValueError:
+#         return jsonify({"error": "Could not understand the voice input"})
     
-    except sr.RequestError:
-        return jsonify({"error": "Speech Recognition service unavailable"})
+#     except sr.RequestError:
+#         return jsonify({"error": "Speech Recognition service unavailable"})
     
-    except sr.WaitTimeoutError:
-        return jsonify({"error": "Listening timed out. Try again."})
+#     except sr.WaitTimeoutError:
+#         return jsonify({"error": "Listening timed out. Try again."})
 
 
 
@@ -361,4 +361,5 @@ def covid_prediction():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
